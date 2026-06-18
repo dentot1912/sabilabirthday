@@ -1,0 +1,30 @@
+/* Pagination dots */
+.swiper-pagination-bullet {
+    background: #f9a8d4;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+  }
+
+  .swiper-pagination-bullet-active {
+    background: #ec4899;
+    width: 16px;
+    opacity: 1;
+    border-radius: 8px;
+  }
+
+  /* Cute shadow */
+  .cute-card {
+    box-shadow: 0 10px 40px rgba(255, 182, 193, 0.3);
+  }
+
+  /* Navigation arrow style */
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: #ec4899;
+    transition: 0.3s;
+  }
+
+  .swiper-button-next:hover,
+  .swiper-button-prev:hover {
+    scale: 1.1;
+  }

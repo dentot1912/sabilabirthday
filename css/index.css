@@ -1,0 +1,1295 @@
+/* ==========================================================================
+   🌸 Birthday Surprise — Ultra Premium "Blush Rose Quartz & Matcha Gold" CSS 🌸
+   ========================================================================== */
+
+:root {
+    --quartz-pink:    hsl(343, 100%, 68%);     /* #ff4d6d - Vibrant primary */
+    --rose-quartz:    hsl(345, 100%, 86%);     /* #ffccd5 - Soft glowing blush */
+    --quartz-pale:    hsl(343, 100%, 95%);     /* #fff0f4 - Sweet background */
+    --matcha-gold:    hsl(48, 100%, 75%);      /* #ffeb99 - Warm champagne glow */
+    --velvet-dark:    hsl(328, 55%, 18%);      /* #4a1535 - Rich text & contrast */
+    --matcha-green:   hsl(150, 45%, 45%);      /* #3cb371 - Cute secondary green */
+    
+    --glass-bg:       rgba(255, 255, 255, 0.72);
+    --glass-border:   rgba(255, 255, 255, 0.45);
+    --premium-shadow: 0 30px 80px rgba(74, 21, 53, 0.12);
+    
+    --font-head:  'Playfair Display', serif;
+    --font-body:  'Quicksand', sans-serif;
+    --font-hand:  'Caveat', cursive;
+    --font-write: 'Dancing Script', cursive;
+
+    --radius-lg:  2.5rem;
+    --radius-md:  1.5rem;
+    --radius-sm:  1rem;
+
+    --transition-slow: 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    --transition-fast: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ─── Global Reset & Body ───────────────────────────────────────────────── */
+*, *::before, *::after {
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow: hidden;
+}
+
+body {
+    font-family: var(--font-body);
+    background: radial-gradient(circle at 50% 50%, #fff6f8 0%, #ffeaf1 60%, #ffd1df 100%);
+    color: var(--velvet-dark);
+    min-height: 100vh;
+    overflow: hidden;
+    line-height: 1.6;
+    user-select: none;
+}
+
+/* ─── Interactive Canvas Sparks ─────────────────────────────────────────── */
+#canvas-sparks {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2; /* Sits above background, below cards */
+}
+
+#section-gallery{
+    overflow-x: hidden;
+}
+
+/* ─── Navigation Progress Dots ──────────────────────────────────────────── */
+.progress-nav {
+    position: fixed;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    z-index: 1000;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--rose-quartz);
+    border: 1px solid var(--quartz-pink);
+    opacity: 0.5;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.dot.active {
+    background: var(--quartz-pink);
+    opacity: 1;
+    transform: scale(1.6);
+    box-shadow: 0 0 12px var(--quartz-pink);
+}
+
+/* ─── App Container & Sections ─────────────────────────────────────────── */
+.app-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.section {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(40px) scale(0.96);
+    transition: opacity var(--transition-slow), transform var(--transition-slow), visibility var(--transition-slow);
+    z-index: 1;
+    gap: 1.2rem;
+    overflow-y: auto;
+}
+
+.section.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    z-index: 10;
+}
+
+/* ─── Typography & Titles ───────────────────────────────────────────────── */
+.section-title {
+    font-family: var(--font-head);
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    color: var(--quartz-pink);
+    text-align: center;
+    text-shadow: 0 4px 15px rgba(255, 77, 109, 0.15);
+    margin-bottom: 0.2rem;
+}
+
+.section-subtitle {
+    font-size: clamp(0.85rem, 2.5vw, 1.05rem);
+    color: var(--velvet-dark);
+    opacity: 0.8;
+    text-align: center;
+    font-weight: 600;
+    max-width: 480px;
+}
+
+/* ─── Premium Elegant Buttons ───────────────────────────────────────────── */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: linear-gradient(135deg, var(--quartz-pink), #e63956);
+    color: white;
+    border: none;
+    padding: 0.9rem 2.2rem;
+    border-radius: 100px;
+    font-family: var(--font-body);
+    font-size: clamp(0.88rem, 2.5vw, 1rem);
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(255, 77, 109, 0.35);
+    transition: all var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+    z-index: 5;
+}
+
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 60%);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.5s ease;
+    pointer-events: none;
+}
+
+.btn-primary:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 14px 40px rgba(255, 77, 109, 0.45);
+}
+
+.btn-primary:hover::after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.btn-primary:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+.btn--hidden { display: none !important; }
+.btn--visible { display: inline-flex !important; }
+
+/* ─── Section 0: Interactive Envelope Invitation ───────────────────────── */
+.envelope-scene {
+    perspective: 1200px;
+    width: min(100%, 360px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.envelope {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    background: #fff0f3;
+    border-radius: 12px;
+    box-shadow: 0 25px 60px rgba(74, 21, 53, 0.15);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform var(--transition-slow);
+}
+
+/* Flap top (Opens 180deg upwards) */
+.envelope-flap {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, #ffa3b1, #ff8fab);
+    clip-path: polygon(0 0, 50% 55%, 100% 0);
+    z-index: 40;
+    transform-origin: top center;
+    transform: rotateX(0deg) translateZ(8px);
+    transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1), z-index 1.2s;
+    border-radius: 12px 12px 0 0;
+}
+
+.envelope.open .envelope-flap {
+    transform: rotateX(180deg) translateZ(-1px);
+    z-index: 10;
+}
+
+/* Envelope pockets (front sides) */
+.envelope-front {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #ffccd5 0%, #ffccd5 45%, #ffb3c6 50%, #ffa3b1 100%);
+    clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0, 50% 55%);
+    z-index: 35;
+    transform: translateZ(5px);
+    border-radius: 12px;
+    pointer-events: none;
+}
+
+.envelope-back {
+    position: absolute;
+    inset: 0;
+    background: #ffe3e8;
+    border-radius: 12px;
+    transform: translateZ(1px);
+    z-index: 5;
+}
+
+/* Elegant Letter tucked inside */
+.envelope-letter {
+    position: absolute;
+    left: 4%; bottom: 4%; width: 92%; height: 92%;
+    background: white;
+    border-radius: var(--radius-sm);
+    padding: 1.5rem 1rem;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 20;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    transform: translateY(40px) translateZ(2px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 1.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.8s ease, visibility 0.8s ease;
+    border: 1px solid rgba(255, 77, 109, 0.15);
+}
+
+.envelope.open .envelope-letter {
+    display: flex;
+    transform: translateY(-160px) scale(1.05) translateZ(15px);
+    z-index: 50;
+    box-shadow: 0 20px 50px rgba(255, 77, 109, 0.25);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition-delay: 0.9s;
+}
+
+.kitty-ears {
+    position: absolute;
+    top: 0; left: 0; width: 100%;
+}
+
+.ear {
+    position: absolute;
+    top: -18px;
+    width: 44px; height: 38px;
+    background: white;
+    border: 1.5px solid rgba(255, 77, 109, 0.2);
+    border-bottom: none;
+    border-radius: 50% 50% 0 0;
+}
+.ear--left  { left: 24px; transform: rotate(-15deg); }
+.ear--right { right: 24px; transform: rotate(15deg); }
+
+.kitty-avatar img {
+    filter: drop-shadow(0 8px 16px rgba(255, 77, 109, 0.15));
+    margin-bottom: 0.5rem;
+}
+
+.intro-title {
+    font-family: var(--font-head);
+    font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+    color: var(--quartz-pink);
+    line-height: 1.3;
+    margin-bottom: 0.4rem;
+}
+.intro-title em {
+    font-family: var(--font-write);
+    color: var(--velvet-dark);
+}
+
+.intro-sub {
+    font-size: clamp(0.75rem, 2.2vw, 0.88rem);
+    color: var(--velvet-dark);
+    opacity: 0.8;
+    margin-bottom: 1rem;
+    padding: 0 0.5rem;
+}
+
+/* Wax Seal Stamp */
+.envelope-seal {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -40%) scale(1) translateZ(10px);
+    width: 60px; height: 60px;
+    background: radial-gradient(circle, #ffca3a 0%, #daa520 80%, #b8860b 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 45;
+    box-shadow: 0 6px 20px rgba(184, 134, 11, 0.4);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 2px dashed rgba(255,255,255,0.4);
+}
+
+.envelope-seal:hover {
+    transform: translate(-50%, -40%) scale(1.15) rotate(15deg) translateZ(12px);
+    box-shadow: 0 10px 25px rgba(184, 134, 11, 0.6);
+}
+
+.envelope-seal:active {
+    transform: translate(-50%, -40%) scale(0.9) translateZ(10px);
+}
+
+.seal-stamp {
+    font-size: 1.6rem;
+    animation: gentleWiggle 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes gentleWiggle {
+    0% { transform: rotate(-10deg); }
+    100% { transform: rotate(10deg); }
+}
+
+.envelope.open .envelope-seal {
+    transform: translate(-50%, 80px) scale(0) translateZ(0px);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.envelope-hint {
+    font-size: clamp(0.8rem, 2.4vw, 0.95rem);
+    font-weight: 700;
+    color: var(--quartz-pink);
+    text-align: center;
+    letter-spacing: 1.5px;
+    animation: pulseGlow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+    0% { opacity: 0.6; transform: translateY(0); }
+    100% { opacity: 1; transform: translateY(-3px); }
+}
+
+/* ─── Section 1: Secret Diary 3D Book Redesign ───────────────────────── */
+.diary-scene {
+    perspective: 1600px;
+    width: min(100%, 380px);
+    height: clamp(380px, 60vh, 520px);
+    cursor: pointer;
+    outline: none;
+}
+
+.diary {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.diary.open {
+    transform: rotateY(-180deg) translateX(50%);
+}
+
+.diary-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border-radius: var(--radius-md) var(--radius-lg) var(--radius-lg) var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+    box-shadow: 12px 12px 40px rgba(74, 21, 53, 0.15);
+    overflow: hidden;
+}
+
+/* Leather Pattern Cover */
+.diary-cover {
+    background: linear-gradient(135deg, var(--quartz-pink) 0%, #d92445 100%);
+    z-index: 2;
+    border-left: 14px solid rgba(0, 0, 0, 0.25);
+    position: relative;
+}
+
+.diary-spine {
+    position: absolute;
+    left: 0; top: 0; bottom: 0; width: 14px;
+    background: linear-gradient(to right, rgba(0,0,0,0.4) 0%, rgba(255,255,255,0.1) 100%);
+}
+
+.diary-cover-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
+    opacity: 0.7;
+}
+
+.diary-cover-content {
+    position: relative;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.diary-gold-lace {
+    position: absolute;
+    inset: -5px;
+    border: 2px solid var(--matcha-gold);
+    border-radius: var(--radius-md);
+    opacity: 0.45;
+    pointer-events: none;
+}
+
+.diary-cover-label {
+    font-family: var(--font-head);
+    font-size: clamp(1.15rem, 3.5vw, 1.45rem);
+    color: white;
+    text-shadow: 0 3px 10px rgba(0,0,0,0.25);
+}
+
+.diary-lock {
+    margin-top: 0.5rem;
+    filter: drop-shadow(0 6px 15px rgba(0,0,0,0.2));
+    transition: transform var(--transition-fast);
+}
+
+.diary:hover .diary-lock {
+    transform: scale(1.08) rotate(5deg);
+}
+
+.diary-tap-hint {
+    font-size: clamp(0.72rem, 2vw, 0.8rem);
+    color: rgba(255, 255, 255, 0.85);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-top: 0.5rem;
+}
+
+/* Inside Page */
+.diary-inside {
+    background: #fffefb;
+    transform: rotateY(180deg);
+    z-index: 1;
+    align-items: flex-start;
+    border-right: 12px solid #eae5db;
+    border-radius: var(--radius-lg) var(--radius-md) var(--radius-md) var(--radius-lg);
+    overflow: hidden;
+}
+
+.diary-pages-stack {
+    position: absolute;
+    right: 0; top: 2px; bottom: 2px; width: 8px;
+    background: linear-gradient(to right, #ddd3c5 0%, #fffefb 100%);
+    border-left: 1px solid rgba(0,0,0,0.08);
+}
+
+.diary-lines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(transparent, transparent 29px, rgba(255, 77, 109, 0.12) 29px, rgba(255, 77, 109, 0.12) 30px);
+    background-position: 0 54px;
+}
+
+.diary-text {
+    position: relative;
+    text-align: left;
+    font-size: clamp(0.85rem, 2.4vw, 1rem);
+    line-height: 1.8;
+    color: var(--velvet-dark);
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.diary-date {
+    font-size: clamp(0.7rem, 2vw, 0.78rem);
+    color: var(--quartz-pink);
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.diary-salute {
+    font-family: var(--font-write);
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
+    color: var(--quartz-pink);
+    margin-bottom: 0.8rem;
+}
+
+/* Handwritten fade-in effect */
+.diary-handwritten-body {
+    font-family: var(--font-hand);
+    font-size: clamp(0.95rem, 2.8vw, 1.25rem);
+    line-height: 1.55;
+    font-weight: 600;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 1.5s ease 0.6s, transform 1.5s ease 0.6s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.diary.open .diary-handwritten-body {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.diary-sign {
+    text-align: right;
+    font-family: var(--font-write);
+    font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+    color: var(--quartz-pink);
+    margin-top: 1.2rem;
+    line-height: 1.3;
+}
+
+/* Diary Multi-page Carousel */
+.diary-carousel {
+    position: relative;
+    width: 100%;
+    flex: 1;
+    overflow: hidden;
+}
+
+.diary-page {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    pointer-events: none;
+    overflow-y: auto;
+    padding-right: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--rose-quartz) transparent;
+}
+
+.diary-page::-webkit-scrollbar {
+    width: 4px;
+}
+
+.diary-page::-webkit-scrollbar-thumb {
+    background: var(--rose-quartz);
+    border-radius: 4px;
+}
+
+.diary-page.active {
+    position: relative;
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+.diary-page.exit-left {
+    transform: translateX(-40px);
+    opacity: 0;
+}
+
+.diary-love-line {
+    font-family: var(--font-write);
+    font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+    color: var(--quartz-pink);
+    text-align: center;
+    margin-top: 0.5rem;
+    animation: pulseGlow 1.5s ease-in-out infinite alternate;
+}
+
+/* Alt body style for pages 2-4 (show immediately since diary is already open) */
+.diary-body-alt {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Diary Page Navigation */
+.diary-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-top: 0.6rem;
+    position: relative;
+    z-index: 10;
+}
+
+.diary-nav-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1.5px solid var(--quartz-pink);
+    background: rgba(255, 77, 109, 0.08);
+    color: var(--quartz-pink);
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    line-height: 1;
+    padding: 0;
+}
+
+.diary-nav-btn:hover {
+    background: var(--quartz-pink);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(255, 77, 109, 0.3);
+}
+
+.diary-dots {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+}
+
+.diary-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--rose-quartz);
+    border: 1px solid var(--quartz-pink);
+    opacity: 0.5;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.diary-dot.active {
+    background: var(--quartz-pink);
+    opacity: 1;
+    transform: scale(1.4);
+    box-shadow: 0 0 8px rgba(255, 77, 109, 0.4);
+}
+
+/* ─── Section 2: Tossable Polaroid Stack ───────────────────────────────── */
+.polaroid-stack-container {
+    width: min(100%, 340px);
+    height: clamp(340px, 50vh, 440px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.polaroid-stack {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+}
+
+.polaroid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white;
+    padding: 0.8rem 0.8rem 2.2rem;
+    box-shadow: 0 15px 45px rgba(74, 21, 53, 0.08);
+    border-radius: 6px;
+    transform-origin: center center;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
+    cursor: grab;
+    display: flex;
+    flex-direction: column;
+    touch-action: none;
+    backface-visibility: hidden;
+    border: 1px solid rgba(0,0,0,0.04);
+}
+
+.polaroid:active {
+    cursor: grabbing;
+}
+
+/* Cute washi tape at top */
+.polaroid::before {
+    content: '';
+    position: absolute;
+    top: -12px; left: 50%;
+    transform: translateX(-50%) rotate(-3deg);
+    width: 80px; height: 24px;
+    background: rgba(255, 182, 193, 0.5);
+    border-left: 2px dashed rgba(255,255,255,0.4);
+    border-right: 2px dashed rgba(255,255,255,0.4);
+    z-index: 5;
+    pointer-events: none;
+}
+
+.polaroid img {
+    width: 100%;
+    height: 80%;
+    object-fit: cover;
+    border-radius: 3px;
+    pointer-events: none;
+    border: 1px solid rgba(0,0,0,0.02);
+}
+
+.polaroid-caption {
+    font-family: var(--font-hand);
+    font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+    font-weight: 700;
+    color: var(--velvet-dark);
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/* ─── Section 3: Magical Cake cutting ─────────────────────────────────── */
+.cake-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    width: min(100%, 350px);
+}
+
+.cake-svg-container {
+    width: min(100%, 280px);
+    position: relative;
+    filter: drop-shadow(0 20px 40px rgba(255, 77, 109, 0.22));
+}
+
+.cake-svg-container svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.flame {
+    animation: flickFlame 0.6s ease-in-out infinite alternate;
+    transform-origin: center bottom;
+}
+
+@keyframes flickFlame {
+    0% { transform: scale(1) rotate(-1deg); }
+    100% { transform: scale(0.9) scaleY(1.15) rotate(1deg); }
+}
+
+/* Glowing knife wand overlay */
+.knife-wand {
+    position: absolute;
+    font-size: 2rem;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    transition: opacity 0.3s;
+    filter: drop-shadow(0 0 10px var(--quartz-pink));
+    z-index: 10;
+}
+
+.cake-svg-container:hover .knife-wand {
+    opacity: 1;
+}
+
+.cut-zone {
+    width: min(100%, 280px);
+    height: 56px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 2px dashed var(--quartz-pink);
+    border-radius: var(--radius-sm);
+    position: relative;
+    cursor: ew-resize;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: none;
+    box-shadow: 0 10px 30px rgba(74,21,53,0.05);
+}
+
+.cut-hint {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--quartz-pink);
+    font-size: 0.95rem;
+    font-weight: 700;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.cut-icon-wrap {
+    font-size: 1.2rem;
+    animation: slideArrow 1s infinite alternate;
+}
+
+@keyframes slideArrow {
+    0% { transform: translateX(-4px); }
+    100% { transform: translateX(4px); }
+}
+
+.cut-progress-bar {
+    position: absolute;
+    left: 0; top: 0; height: 100%; width: 0%;
+    background: linear-gradient(90deg, rgba(255, 77, 109, 0.15), rgba(255, 77, 109, 0.45));
+    transition: width 0.05s linear;
+    pointer-events: none;
+}
+
+/* ─── Section 4: 3D Iridescent Soap-Bubbles Wishes ────────────────────── */
+#section-wish { gap: 0.8rem; }
+
+.wish-field {
+    position: relative;
+    width: min(100%, 360px);
+    height: clamp(240px, 45vh, 320px);
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.25);
+    border: 2px dashed var(--rose-quartz);
+    overflow: hidden;
+}
+
+/* Iridescent 3D soap bubble styling */
+.wish-bubble {
+    position: absolute;
+    left: var(--wx, 10%);
+    top: var(--wy, 20%);
+    color: var(--velvet-dark);
+    padding: 0.65rem 1.1rem;
+    border-radius: 100px;
+    font-size: clamp(0.76rem, 2.2vw, 0.88rem);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+    white-space: nowrap;
+    
+    /* Bubble gradient effect */
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 182, 193, 0.4) 60%, rgba(255, 77, 109, 0.2) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    box-shadow: 
+        inset 0 10px 15px rgba(255,255,255,0.7),
+        inset 0 -5px 12px rgba(255, 77, 109, 0.25),
+        0 8px 24px rgba(255, 77, 109, 0.12);
+        
+    animation: driftBubble var(--dur, 4s) ease-in-out infinite alternate;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.wish-bubble::before {
+    content: '';
+    position: absolute;
+    top: 5px; left: 10px; width: 8px; height: 4px;
+    background: rgba(255,255,255,0.85);
+    border-radius: 50%;
+    transform: rotate(-30deg);
+}
+
+.wish-bubble:hover {
+    transform: scale(1.1);
+    box-shadow: 
+        inset 0 12px 20px rgba(255,255,255,0.9),
+        inset 0 -8px 18px rgba(255, 77, 109, 0.45),
+        0 14px 35px rgba(255, 77, 109, 0.22);
+    z-index: 100;
+}
+
+@keyframes driftBubble {
+    0% { transform: translateY(0px) rotate(-1deg); }
+    100% { transform: translateY(-15px) rotate(1deg); }
+}
+
+/* Glassmorphic elegant wish popup modal */
+.wish-popup {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1.5px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 1.2rem 1.8rem;
+    color: var(--velvet-dark);
+    box-shadow: var(--premium-shadow);
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    opacity: 0;
+    transform: translateY(15px) scale(0.95);
+    width: min(100%, 330px);
+    pointer-events: none;
+    z-index: 50;
+    text-align: center;
+}
+
+.wish-popup.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.wish-popup-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.wish-popup-sparkles {
+    font-size: 1.2rem;
+    color: var(--quartz-pink);
+    animation: pulseScale 1s infinite alternate;
+}
+
+@keyframes pulseScale {
+    0% { transform: scale(0.92); }
+    100% { transform: scale(1.08); }
+}
+
+#wish-popup-text {
+    font-family: var(--font-hand);
+    font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+    line-height: 1.5;
+    font-weight: 700;
+}
+
+.final-message {
+    font-family: var(--font-head);
+    font-size: clamp(1.4rem, 4.5vw, 2.1rem);
+    color: var(--quartz-pink);
+    text-align: center;
+    text-shadow: 0 4px 15px rgba(255, 77, 109, 0.18);
+    margin-top: 0.4rem;
+}
+
+.forever-text {
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--velvet-dark);
+    opacity: 0.6;
+    font-weight: 700;
+}
+
+/* ─── Section 5: Premium Gift Box & 3D Tilt ───────────────────────────── */
+.gift-scene {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    width: min(100%, 400px);
+    max-width: 90vw;
+}
+
+.gift-box-wrap {
+    width: clamp(150px, 42vw, 210px);
+    cursor: pointer;
+    position: relative;
+    outline: none;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: drop-shadow(0 20px 45px rgba(217, 4, 41, 0.35));
+}
+
+.gift-box-wrap:hover {
+    transform: scale(1.06);
+}
+
+.gift-tag {
+    position: absolute;
+    top: 15px; left: -10px;
+    background: var(--matcha-gold);
+    color: var(--velvet-dark);
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transform: rotate(-10deg);
+    z-index: 10;
+}
+
+.gift-box-wrap svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.gift-lid-group {
+    transform-origin: center 74px;
+    transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.gift-lid-group.open {
+    transform: rotateX(-120deg) translateY(-40px);
+}
+
+.gift-reveal {
+    display: none;
+    text-align: center;
+    width: 100%;
+    animation: scaleCardUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.gift-reveal.show {
+    display: block;
+}
+
+@keyframes scaleCardUp {
+    from { opacity: 0; transform: scale(0.8) translateY(30px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.gift-reveal-title {
+    font-family: var(--font-head);
+    font-size: clamp(1.3rem, 4vw, 1.8rem);
+    color: var(--quartz-pink);
+    margin-bottom: 1.2rem;
+}
+
+/* 3D Tilt Card Frame */
+.reward-frame-tilt {
+    perspective: 1000px;
+    width: 100%;
+    max-width: min(320px, 85vw);
+    margin: 0 auto;
+}
+
+.reward-frame {
+    background: white;
+    padding: 0.8rem;
+    border-radius: var(--radius-md);
+    border: 3px solid var(--matcha-gold);
+    box-shadow: 0 20px 50px rgba(255, 77, 109, 0.25);
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.reward-img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+    display: block;
+}
+
+.reward-sparkles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 50%, rgba(255,235,153,0.3) 100%);
+}
+
+.gift-credit {
+    font-size: clamp(0.72rem, 2.2vw, 0.8rem);
+    color: var(--velvet-dark);
+    opacity: 0.7;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 1rem;
+}
+
+/* Gift Message Card */
+.gift-message-card {
+    padding: clamp(1.2rem, 4vw, 2rem) clamp(1rem, 3.5vw, 1.8rem) !important;
+    background: linear-gradient(145deg, #fff9fb 0%, #ffe8ef 50%, #ffd6e0 100%) !important;
+    border: 2px solid var(--rose-quartz) !important;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(0.5rem, 2vw, 0.8rem);
+}
+
+.gift-msg-icon {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    animation: pulseScale 1.2s ease-in-out infinite alternate;
+}
+
+.gift-msg-text {
+    font-family: var(--font-hand);
+    font-size: clamp(0.88rem, 2.8vw, 1.3rem);
+    line-height: 1.55;
+    color: var(--velvet-dark);
+    font-weight: 600;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.gift-msg-sign {
+    font-family: var(--font-write);
+    font-size: clamp(0.88rem, 2.8vw, 1.25rem);
+    color: var(--quartz-pink);
+    margin-top: 0.3rem;
+    font-weight: 700;
+}
+
+/* ─── Responsive Adjustments — Flawless All-Device Scaling ──────────────── */
+
+/* Tablets & Foldables (width 600px to 900px) */
+@media (min-width: 600px) {
+    .polaroid-stack-container { width: 340px; height: 460px; }
+    .wish-field { height: 320px; }
+}
+
+/* Standard Mobile Devices (max-width: 480px) */
+@media (max-width: 480px) {
+    .section { 
+        padding: 1.5rem 1rem; 
+        gap: 1rem;
+    }
+    .section-title { font-size: clamp(1.6rem, 5vw, 2rem); }
+    .section-subtitle { font-size: 0.85rem; padding: 0 0.5rem; }
+
+    /* Envelope Adjustments */
+    .envelope-scene { width: min(100%, 310px); }
+    .envelope { height: 210px; }
+    .envelope.open .envelope-letter { 
+        transform: translateY(-110px) scale(1.03); 
+        padding: 1rem 0.8rem;
+    }
+    .kitty-avatar img { width: 75px; height: 75px; }
+    .intro-title { font-size: 1.35rem; }
+    .intro-sub { font-size: 0.78rem; margin-bottom: 0.6rem; }
+    .envelope-seal { width: 52px; height: 52px; }
+    .seal-stamp { font-size: 1.3rem; }
+
+    /* 3D Diary Book Center Adjustments */
+    .diary-scene { 
+        width: min(100%, 320px); 
+        height: clamp(340px, 55vh, 440px); 
+    }
+    .diary.open {
+        transform: rotateY(-180deg) translateX(-15px) scale(0.95);
+    }
+    .diary-face { padding: 1.2rem 0.8rem; }
+    .diary-salute { font-size: 1.1rem; margin-bottom: 0.3rem; }
+    .diary-handwritten-body { 
+        font-size: clamp(0.82rem, 2.8vw, 1rem); 
+        gap: 0.3rem; 
+    }
+    .diary-sign { margin-top: 0.5rem; font-size: 1.05rem; }
+    .diary-nav-btn { width: 26px; height: 26px; font-size: 1rem; }
+    .diary-dot { width: 6px; height: 6px; }
+    .diary-nav { margin-top: 0.4rem; gap: 0.5rem; }
+
+    /* Polaroid Stack Adjustments */
+    .polaroid-stack-container { width: min(100%, 290px); height: 380px; }
+    .polaroid { padding: 0.6rem 0.6rem 1.8rem; }
+    .polaroid-caption { font-size: 1.15rem; margin-top: 0.6rem; }
+
+    /* Cake Adjustments */
+    .cake-svg-container { width: 230px; }
+    .cut-zone { width: 230px; height: 50px; }
+    .cut-hint { font-size: 0.85rem; }
+
+    /* Wish Bubbles Adjustments */
+    .wish-field { height: 230px; }
+    .wish-bubble { 
+        font-size: 0.72rem; 
+        padding: 0.45rem 0.8rem; 
+    }
+
+    /* Gift Box & Message Card Adjustments */
+    .gift-box-wrap { width: clamp(130px, 40vw, 160px); }
+    .gift-scene { width: min(100%, 340px); gap: 1rem; }
+    .reward-frame-tilt { max-width: min(280px, 80vw); }
+    .gift-reveal-title { font-size: clamp(1.1rem, 3.5vw, 1.5rem); margin-bottom: 0.8rem; }
+    .gift-message-card { gap: 0.4rem !important; }
+    .gift-msg-icon { font-size: 1.8rem; }
+    .gift-msg-text { font-size: clamp(0.82rem, 2.5vw, 1rem); line-height: 1.45; }
+    .gift-msg-sign { font-size: clamp(0.82rem, 2.5vw, 1rem); }
+}
+
+/* Tiny Mobile Devices (max-width: 360px - e.g., iPhone SE) */
+@media (max-width: 360px) {
+    .section { padding: 1rem 0.6rem; }
+    .envelope-scene { width: 270px; }
+    .envelope { height: 180px; }
+    .envelope.open .envelope-letter { transform: translateY(-90px) scale(1); }
+    .kitty-avatar img { width: 60px; height: 60px; }
+    
+    .diary-scene { width: 280px; height: 310px; }
+    .diary.open { transform: rotateY(-180deg) translateX(-10px) scale(0.88); }
+    .diary-handwritten-body { font-size: 0.78rem; line-height: 1.35; }
+    .diary-nav-btn { width: 22px; height: 22px; font-size: 0.85rem; }
+
+    .polaroid-stack-container { width: 250px; height: 320px; }
+    .cake-svg-container { width: 190px; }
+    .cut-zone { width: 190px; }
+    .wish-field { height: 190px; }
+    .wish-bubble { font-size: 0.65rem; padding: 0.35rem 0.65rem; }
+    .progress-nav { right: 0.5rem; }
+
+    /* Gift Box & Message Card — Tiny */
+    .gift-box-wrap { width: 120px; }
+    .gift-scene { width: 260px; gap: 0.8rem; }
+    .reward-frame-tilt { max-width: 240px; }
+    .gift-reveal-title { font-size: 1rem; margin-bottom: 0.6rem; }
+    .gift-message-card { padding: 1rem 0.8rem !important; gap: 0.3rem !important; }
+    .gift-msg-icon { font-size: 1.5rem; }
+    .gift-msg-text { font-size: 0.78rem; line-height: 1.4; }
+    .gift-msg-sign { font-size: 0.78rem; }
+    .gift-tag { font-size: 0.6rem; padding: 0.2rem 0.5rem; top: 10px; left: -5px; }
+}
+
+/* Landscape & Short Height Screen Adjustments */
+@media (max-height: 620px) and (orientation: landscape) {
+    .section {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 0.6rem 1rem;
+        overflow-y: auto;
+    }
+    .section-title { font-size: 1.3rem; }
+    .section-subtitle { font-size: 0.8rem; }
+    .envelope-scene { width: 280px; }
+    .envelope { height: 180px; }
+    .diary-scene { width: 240px; height: 240px; }
+    .polaroid-stack-container { width: 260px; height: 320px; }
+    .cake-svg-container { width: 180px; }
+    .wish-field { height: 160px; width: 280px; }
+    .progress-nav { display: none; }
+
+    /* Gift — Landscape */
+    .gift-scene { width: min(100%, 320px); gap: 1rem; }
+    .gift-box-wrap { width: 130px; }
+    .reward-frame-tilt { max-width: 260px; }
+    .gift-reveal-title { font-size: 1.1rem; margin-bottom: 0.6rem; }
+    .gift-msg-text { font-size: 0.85rem; line-height: 1.4; }
+}
+
+/* Large & Desktop Screen Scaling (width: 900px+) */
+@media (min-width: 900px) {
+    .diary-scene { width: 420px; height: 540px; }
+    .polaroid-stack-container { width: 380px; height: 480px; }
+    .wish-field { max-width: 440px; height: 340px; }
+    .cake-svg-container { width: 310px; }
+    .cut-zone { width: 310px; }
+
+    /* Gift — Desktop */
+    .gift-scene { width: min(100%, 450px); }
+    .gift-box-wrap { width: 220px; }
+    .reward-frame-tilt { max-width: 380px; }
+    .gift-msg-text { font-size: 1.3rem; max-width: 360px; }
+    .gift-msg-sign { font-size: 1.25rem; }
+    .gift-msg-icon { font-size: 2.8rem; }
+}
+
