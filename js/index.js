@@ -1,5 +1,5 @@
 /**
- * 🌸 Birthday Surprise — Ultra Premium "Blush Rose Quartz" JS 🌸
+ * 💙 Birthday Surprise — Ultra Premium "Ocean Blue & Starlight Gold" JS 💙
  * Fully Responsive, Touch & Pointer Enabled, Canvas Particle Engine
  */
 
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.speed = 0.5 + Math.random() * 1.2;
             this.drift = (Math.random() - 0.5) * 0.4;
             this.alpha = 0.15 + Math.random() * 0.25;
-            this.color = ['#ffccd5', '#ff8fab', '#ffd6e0', '#ff4d6d'][Math.floor(Math.random() * 4)];
+            this.color = ['#b3d4ff', '#6eb8ff', '#d6eaff', '#3385ff'][Math.floor(Math.random() * 4)];
         }
 
         draw() {
@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const triggerBurst = (x, y, count = 30, type = 'spark') => {
-        const colors = ['#ff4d6d', '#ff8fab', '#ffccd5', '#ffeb99', '#ffffff'];
+        const colors = ['#3385ff', '#6eb8ff', '#b3d4ff', '#ffeb99', '#ffffff'];
         for (let i = 0; i < count; i++) {
             const color = colors[Math.floor(Math.random() * colors.length)];
             particles.push(new Particle(x, y, color, type));
@@ -267,62 +267,6 @@ document.addEventListener('DOMContentLoaded', () => {
         goTo(2);
     });
 
-    /* ─── Diary Carousel Page Navigation ──────────────────────────────────── */
-    const diaryPages = Array.from(document.querySelectorAll('.diary-page'));
-    const diaryDots = Array.from(document.querySelectorAll('.diary-dot'));
-    const diaryPrevBtn = document.getElementById('diary-prev');
-    const diaryNextPageBtn = document.getElementById('diary-next-page');
-    let currentDiaryPage = 0;
-
-    const goToDiaryPage = (idx) => {
-        if (idx < 0 || idx >= diaryPages.length || idx === currentDiaryPage) return;
-
-        const direction = idx > currentDiaryPage ? 1 : -1;
-
-        // Exit current page
-        diaryPages[currentDiaryPage].classList.remove('active');
-        diaryPages[currentDiaryPage].classList.add(direction > 0 ? 'exit-left' : '');
-        diaryPages[currentDiaryPage].style.transform = direction > 0 ? 'translateX(-40px)' : 'translateX(40px)';
-
-        // Update dots
-        diaryDots[currentDiaryPage].classList.remove('active');
-        diaryDots[idx].classList.add('active');
-
-        // Enter new page
-        currentDiaryPage = idx;
-        diaryPages[idx].style.transform = direction > 0 ? 'translateX(40px)' : 'translateX(-40px)';
-        diaryPages[idx].classList.remove('exit-left');
-
-        // Force reflow then animate in
-        void diaryPages[idx].offsetHeight;
-        diaryPages[idx].classList.add('active');
-        diaryPages[idx].style.transform = '';
-
-        // Small sparkle on page turn
-        const nav = document.getElementById('diary-nav');
-        if (nav) {
-            const r = nav.getBoundingClientRect();
-            triggerBurst(r.left + r.width / 2, r.top, 8, 'spark');
-        }
-    };
-
-    diaryPrevBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        goToDiaryPage(currentDiaryPage - 1);
-    });
-
-    diaryNextPageBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        goToDiaryPage(currentDiaryPage + 1);
-    });
-
-    diaryDots.forEach(dot => {
-        dot.addEventListener('click', (e) => {
-            e.stopPropagation();
-            goToDiaryPage(+dot.dataset.dpage);
-        });
-    });
-
     /* ─── Section 2: Tossable Polaroid Stack ──────────────────────────────── */
     const polaroidStack = document.getElementById('polaroid-stack');
     let polaroidsLoaded = false;
@@ -332,13 +276,17 @@ document.addEventListener('DOMContentLoaded', () => {
         polaroidsLoaded = true;
 
         const images = [
-            { src: 'assets/irl-01.jpeg', label: 'Sabila Sayang ✨' },
-            { src: 'assets/irl-02.jpeg', label: 'Sabila Sayang 😊' },
-            { src: 'assets/irl-03.jpeg', label: 'Sabila Sayang 🩷' },
-            { src: 'assets/irl-04.jpeg', label: 'Sabila Sayang 🧸' },
-            { src: 'assets/irl-05.jpeg', label: 'Sabila Sayang ☕' },
-            { src: 'assets/irl-06.jpeg', label: 'Sabila Sayang 🤪' },
-            { src: 'assets/irl-07.jpeg', label: 'Sabila Sayang 🤪' },
+            { src: 'assets/irl-01.jpeg', label: '✨' },
+            { src: 'assets/irl-02.jpeg', label: '😊' },
+            { src: 'assets/irl-03.jpeg', label: '🩷' },
+            { src: 'assets/irl-04.jpeg', label: '🧸' },
+            { src: 'assets/irl-05.jpeg', label: '☕' },
+            { src: 'assets/irl-06.jpeg', label: '🤪' },
+            { src: 'assets/irl-07.jpeg', label: '🤪' },
+            { src: 'assets/irl-08.jpeg', label: '🤪' },
+            { src: 'assets/irl-09.jpeg', label: '🤪' },
+            { src: 'assets/irl-10.jpeg', label: '🤪' },
+            { src: 'assets/irl-11.jpeg', label: '🤪' },
         ];
 
         images.forEach((img, idx) => {
